@@ -31,7 +31,7 @@ import { FiSearch } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 
 //* Helpers
-import { columnsTitles } from "@/helpers/columnsTitles";
+import { columnsTitles } from "@/utils/columnsTitles";
 import axios from "axios";
 import Swal from "sweetalert2";
 

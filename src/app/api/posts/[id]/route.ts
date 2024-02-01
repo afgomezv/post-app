@@ -17,8 +17,8 @@ export async function GET(request: Request, { params }: Params) {
 export async function PUT(request: Request, { params }: Params) {
   const data = await request.json();
 
-    if (data.authorId) {
-    data.authorId = parseInt(data.authorId);
+  if (data.userId) {
+    data.userId = parseInt(data.userId);
   }
 
   const postsUpdated = await prisma.post.update({
@@ -28,7 +28,7 @@ export async function PUT(request: Request, { params }: Params) {
     data: {
       title: data.title,
       body: data.body,
-      authorId: data.authorId,
+      userId: data.userId,
     },
   });
   return NextResponse.json(postsUpdated);

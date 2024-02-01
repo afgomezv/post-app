@@ -10,15 +10,15 @@ export async function GET() {
 export async function POST(request: Request) {
   const data = await request.json();
 
-  if (data.authorId) {
-    data.authorId = parseInt(data.authorId);
+  if (data.userId) {
+    data.userId = parseInt(data.userId);
   }
 
   const newPost = await prisma.post.create({
     data: {
       title: data.title,
       body: data.body,
-      authorId: data.authorId,
+      userId: data.userId,
     },
   });
 
