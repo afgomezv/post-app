@@ -1,7 +1,6 @@
 import { NewPost } from "@/components/NewPost";
-import { Author } from "@/interface";
 
-export async function getAuthors() {
+async function getAuthors() {
   const response = await fetch("http://localhost:3000/api/authors");
   const authors = await response.json();
   return authors;

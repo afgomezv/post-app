@@ -1,6 +1,6 @@
 import { SectionTable } from "@/components/SectionTable";
 
-export async function getPosts() {
+async function getPosts() {
   try {
     //const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const response = await fetch("http://localhost:3000/api/posts", {

@@ -40,18 +40,20 @@ export const NewPost: FC<Props> = ({ authors, params }) => {
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm<Post>();
 
   useEffect(() => {
     if (params.id) {
       axios.get(`/api/posts/${params.id}`).then((res) => {
-        const postData = res.data;
-        setPostForm(postData);
+        const post = res.data;
+        setValue("title", post.title);
+        setValue("body", post.body);
+        setValue("authorId", post.authorId);
       });
     }
-  }, [params.id]);
+  }, [params.id, setValue]);
 
   const onSubmit: SubmitHandler<Post> = async (data) => {
     if (params.id) {
@@ -100,7 +102,6 @@ export const NewPost: FC<Props> = ({ authors, params }) => {
                 title="text"
                 label="Título *"
                 variant="bordered"
-                value={postForm.title}
                 color={!errors.title ? "primary" : "danger"}
                 isInvalid={!errors.title ? false : true}
                 errorMessage={!errors.title ? "" : `${errors.title?.message}`}
@@ -115,7 +116,6 @@ export const NewPost: FC<Props> = ({ authors, params }) => {
               <Select
                 label="Autor *"
                 variant="bordered"
-                value={postForm.authorId}
                 color={!errors.authorId ? "primary" : "danger"}
                 isInvalid={!errors.authorId ? false : true}
                 errorMessage={
@@ -139,7 +139,6 @@ export const NewPost: FC<Props> = ({ authors, params }) => {
                 className="col-span-2"
                 label="Descripción *"
                 variant="bordered"
-                value={postForm.body}
                 color={!errors.body ? "primary" : "danger"}
                 isInvalid={!errors.body ? false : true}
                 errorMessage={!errors.body ? "" : `${errors.body?.message}`}
