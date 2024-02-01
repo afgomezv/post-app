@@ -94,7 +94,7 @@ const SectionTable = ({ posts }: Props) => {
       case "body":
         return <p className="text-center">{posts.body}</p>;
       case "authorId":
-        return <p className="text-center">{posts.authorId}</p>;
+        return <p className="text-center">{posts.userId}</p>;
       case "acciones":
         return (
           <div className="relative flex justify-center items-center gap-2">

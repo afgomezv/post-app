@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 
 //*Interface
-import { Author, Post } from "@/interface";
+import { User, Post } from "@/interface";
 
 //*Iconos
 import { FaArrowLeft, FaSave } from "react-icons/fa";
@@ -23,7 +23,7 @@ import Swal from "sweetalert2";
 import { Loading } from "./Loading";
 
 interface Props {
-  authors: Author[];
+  authors: User[];
   params: { id: String };
 }
 
@@ -50,7 +50,7 @@ const NewPost: FC<Props> = ({ authors, params }) => {
         const post = res.data;
         setValue("title", post.title);
         setValue("body", post.body);
-        setValue("authorId", post.authorId);
+        setValue("userId", post.authorId);
       });
     }
   }, [params.id, setValue]);
@@ -116,12 +116,10 @@ const NewPost: FC<Props> = ({ authors, params }) => {
               <Select
                 label="Autor *"
                 variant="bordered"
-                color={!errors.authorId ? "primary" : "danger"}
-                isInvalid={!errors.authorId ? false : true}
-                errorMessage={
-                  !errors.authorId ? "" : `${errors.authorId?.message}`
-                }
-                {...register("authorId", {
+                color={!errors.userId ? "primary" : "danger"}
+                isInvalid={!errors.userId ? false : true}
+                errorMessage={!errors.userId ? "" : `${errors.userId?.message}`}
+                {...register("userId", {
                   required: {
                     value: true,
                     message: "Seleccione un autor.",
