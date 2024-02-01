@@ -1,9 +1,10 @@
 import { SectionTable } from "@/components/SectionTable";
+import { url } from "@/helpers/url";
 
 async function getPosts() {
   try {
     //const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    const response = await fetch("http://localhost:3000/api/posts", {
+    const response = await fetch(`${url}/api/posts`, {
       cache: "no-store",
     });
     const posts = await response.json();
