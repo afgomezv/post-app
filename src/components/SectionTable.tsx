@@ -4,6 +4,7 @@
 import { ChangeEvent, Key, useCallback, useMemo, useState } from "react";
 
 //* NextUI
+import Link from "next/link";
 import {
   Button,
   Dropdown,
@@ -27,7 +28,7 @@ import { Post } from "@/interface/Post";
 //* Iconos
 import { LuMoreVertical } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
-import { GoPlus } from "react-icons/go";
+import { FaPlusCircle } from "react-icons/fa";
 
 //* Helpers
 import { columnsTitles } from "@/helpers/columnsTitles";
@@ -126,18 +127,6 @@ export const SectionTable = ({ posts }: Props) => {
     }
   }, []);
 
-  const onNextPage = useCallback(() => {
-    if (page < pages) {
-      setPage(page + 1);
-    }
-  }, [page, pages]);
-
-  const onPreviousPage = useCallback(() => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  }, [page]);
-
   const onRowsPerPageChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       setRowsPerPage(Number(e.target.value));
@@ -167,15 +156,17 @@ export const SectionTable = ({ posts }: Props) => {
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
+            placeholder="Buscar publicación"
+            color="primary"
+            variant="bordered"
             startContent={<FiSearch />}
             value={filterValue}
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">
-            <Button color="primary" endContent={<GoPlus />}>
-              Nuevo Post
+          <div className="flex gap-3 text-white">
+            <Button color="primary" size="lg" endContent={<FaPlusCircle />}>
+              <Link href={"/addpost"}>Crear Publicación</Link>
             </Button>
           </div>
         </div>
@@ -189,8 +180,10 @@ export const SectionTable = ({ posts }: Props) => {
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
             >
-              <option value="10">10</option>
-              <option value="15">25</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
             </select>
           </label>
         </div>
@@ -200,44 +193,27 @@ export const SectionTable = ({ posts }: Props) => {
 
   const bottomContent = useMemo(() => {
     return (
-      <div className="py-2 px-2 flex justify-between items-center">
+      <div className="py-2 px-2 flex justify-center items-center">
         {/* Otros elementos */}
         <Pagination
           isCompact
           showControls
           showShadow
           color="primary"
+          size="lg"
           page={page}
           total={pages}
           onChange={setPage}
         />
-        <div className="hidden sm:flex w-[30%] justify-end gap-2">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     );
-  }, [page, pages, onPreviousPage, onNextPage]);
+  }, [page, pages]);
 
   return (
-    <section className="container mx-auto flex flex-col">
+    <section className="h-full container mx-auto flex flex-col">
       <div>
         <h2 className="px-4 py-4 text-gray-500 text-lg font-medium">
-          Filtros de búsqueda
+          Publicaciones
         </h2>
         <section>
           <Table

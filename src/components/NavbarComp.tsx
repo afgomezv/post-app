@@ -12,8 +12,10 @@ export const NavbarComp = () => {
   return (
     <Navbar position="static">
       <NavbarBrand>
-        <FaBook className="h-8 w-8 text-[#76D7C4]" />
-        <p className="text-xl ml-4 font-bold text-inherit">Post App</p>
+        <Link href={"/"} className="flex">
+          <FaBook className="h-8 w-8 text-primary" />
+          <p className="text-xl ml-4 font-bold text-inherit">Post App</p>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>

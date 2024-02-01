@@ -9,9 +9,28 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        custom: "calc(100vh-64px)",
+      },
+    },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            primary: "#1ABC9C",
+          },
+        },
+        dark: {
+          colors: {
+            primary: "#83E592",
+          },
+        },
+      },
+    }),
+  ],
 };
 export default config;

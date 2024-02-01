@@ -6,30 +6,30 @@ interface Params {
 }
 
 export async function GET(request: Request, { params }: Params) {
-  const task = await prisma.post.findFirst({
+  const post = await prisma.post.findFirst({
     where: {
       id: Number(params.id),
     },
   });
-  return NextResponse.json(task);
+  return NextResponse.json(post);
 }
 
 export async function PUT(request: Request, { params }: Params) {
   const data = await request.json();
-  const taskUpdated = await prisma.post.update({
+  const postsUpdated = await prisma.post.update({
     where: {
       id: Number(params.id),
     },
     data,
   });
-  return NextResponse.json(taskUpdated);
+  return NextResponse.json(postsUpdated);
 }
 
 export async function DELETE(request: Request, { params }: Params) {
-  const task = await prisma.post.delete({
+  const postdeleted = await prisma.post.delete({
     where: {
       id: Number(params.id),
     },
   });
-  return NextResponse.json(task);
+  return NextResponse.json(postdeleted);
 }
