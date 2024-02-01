@@ -2,9 +2,17 @@ import NewPost from "@/components/NewPost";
 import { url } from "@/helpers/url";
 
 async function getAuthors() {
-  const response = await fetch(`${url}/api/authors`);
-  const authors = await response.json();
-  return authors;
+  try {
+    const response = await fetch(`${url}/api/authors`);
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+    const authors = await response.json();
+    return authors;
+  } catch (error) {
+    console.error("Error carga de authors: ", error);
+  }
 }
 
 async function addPostPage({ params }: { params: { id: string } }) {
