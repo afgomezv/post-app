@@ -32,6 +32,8 @@ import { FaPlusCircle } from "react-icons/fa";
 
 //* Helpers
 import { columnsTitles } from "@/helpers/columnsTitles";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 interface Props {
   posts: Post[];
@@ -108,13 +110,21 @@ export const SectionTable = ({ posts }: Props) => {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="menu-route">
-                <DropdownItem
-                //href={`/hiring/registers/add/${data.id}`}
-                >
+                <DropdownItem href={`/addpost/${posts.id}`}>
                   Editar
                 </DropdownItem>
                 <DropdownItem
-                //href={`/hiring/registers/documents/${data.contractaciones.length}`}
+                  href={"/"}
+                  onClick={() => {
+                    axios.delete(`/api/posts/${posts.id}`);
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: "Se ha eliminado la publicación",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  }}
                 >
                   Eliminar
                 </DropdownItem>

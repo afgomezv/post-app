@@ -1,4 +1,5 @@
 import { NewPost } from "@/components/NewPost";
+import { Author } from "@/interface";
 
 export async function getAuthors() {
   const response = await fetch("http://localhost:3000/api/authors");
@@ -6,7 +7,7 @@ export async function getAuthors() {
   return authors;
 }
 
-async function addPostPage({ params }: { params: { id: string } }) {
+async function UpdatePostPage({ params }: { params: { id: string } }) {
   const authors = await getAuthors();
 
   return (
@@ -16,4 +17,4 @@ async function addPostPage({ params }: { params: { id: string } }) {
   );
 }
 
-export default addPostPage;
+export default UpdatePostPage;
