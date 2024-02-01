@@ -39,7 +39,7 @@ interface Props {
   posts: Post[];
 }
 
-export const SectionTable = ({ posts }: Props) => {
+const SectionTable = ({ posts }: Props) => {
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -260,3 +260,5 @@ export const SectionTable = ({ posts }: Props) => {
     </section>
   );
 };
+
+export default SectionTable;

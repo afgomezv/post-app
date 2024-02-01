@@ -27,7 +27,7 @@ interface Props {
   params: { id: String };
 }
 
-export const NewPost: FC<Props> = ({ authors, params }) => {
+const NewPost: FC<Props> = ({ authors, params }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [postForm, setPostForm] = useState({
     title: "",
@@ -175,3 +175,5 @@ export const NewPost: FC<Props> = ({ authors, params }) => {
     </>
   );
 };
+
+export default NewPost;

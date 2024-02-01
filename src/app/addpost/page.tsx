@@ -1,4 +1,4 @@
-import { NewPost } from "@/components/NewPost";
+import NewPost from "@/components/NewPost";
 import { url } from "@/helpers/url";
 
 async function getAuthors() {

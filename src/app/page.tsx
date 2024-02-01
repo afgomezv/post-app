@@ -1,4 +1,4 @@
-import { SectionTable } from "@/components/SectionTable";
+import SectionTable from "@/components/SectionTable";
 import { url } from "@/helpers/url";
 
 async function getPosts() {
@@ -7,10 +7,15 @@ async function getPosts() {
     const response = await fetch(`${url}/api/posts`, {
       cache: "no-store",
     });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
     const posts = await response.json();
     return posts;
   } catch (error) {
-    console.error("Error loading products: ", error);
+    console.error("Error carga de posts: ", error);
   }
 }
 
