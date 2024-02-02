@@ -1,6 +1,10 @@
 //* Funcion
-import NewPost from "@/components/NewPost";
 import { getAuthors } from "@/helpers/getAuthors";
+
+//*Componente
+import NewPost from "@/components/NewPost";
+
+export const dynamic = "force-dynamic";
 
 async function addPostPage({ params }: { params: { id: string } }) {
   const authors = await getAuthors();

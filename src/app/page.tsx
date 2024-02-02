@@ -4,6 +4,8 @@ import { getPosts } from "@/helpers/getPosts";
 //* Componente
 import SectionTable from "@/components/SectionTable";
 
+export const dynamic = "force-dynamic";
+
 async function HomePage() {
   const posts = await getPosts();
   return (
