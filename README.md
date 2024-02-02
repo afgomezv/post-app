@@ -1,36 +1,71 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Configuracion Entorno Desarrollo
 
-First, run the development server:
+primero, descargar las dependencias del proyecto.
+
+```bash
+npm install
+```
+
+segundo, correr el proyecto entorno de desarrollo
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) en tu ordenardor para ver la aplicación funcionando
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Puede comenzar a editar la página midficando`app/page.tsx`.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+tercero, los comando para produccion y tester
 
-## Learn More
+```bash
+npm run build
+npm run test
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Configuración bases de datos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Actualmente el proyecto esta trabajando con una base ya establecidad en postgres(_solo para pruebas_), en el caso que se desee crear una nueva base o cambiar la configuración actual, debes realizar cambios en las variables de entorno en archivo .env.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+POSTGRES_PRISMA_URL=
+POSTGRES_URL_NON_POOLING=
+```
 
-## Deploy on Vercel
+La creación de la base de datos en posgres, se realiza en el siguiente[https://vercel.com/my-team-7427c95e/~/stores](https://vercel.com/my-team-7427c95e/~/stores). Vercel tiene una version gratuita unicamente para pruebas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Despeues de crear la base base datos, lo siguiente es ingresar en ella derigirnos a la pestaña **.env.local**, te sale los siguientes datos. das clic en el boton ver, tienes acceso a las credenciales.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+POSTGRES_URL="************"
+POSTGRES_PRISMA_URL="************"
+POSTGRES_URL_NON_POOLING="************"
+POSTGRES_USER="************"
+POSTGRES_HOST="************"
+POSTGRES_PASSWORD="************"
+POSTGRES_DATABASE="************"
+
+```
+
+En la carpeta prisma se encuentra un archivo `schema.prisma`, este es donde se realiza la siguiente configuracion. se recomienda eliminar la carpeta migrations
+
+```prisma
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+```
+
+Despues de realizar la anterior configuración y eliminar la carpeta migration en la carpeta prisma del proyecto, se procede inicializar la nueava base de datos.
+
+```bash
+npx prisma migrate dev --name init
+```
+
+## Despliegue en Vercel
+
+El proyecto esta desplegado en la siguiente url [https://post-app-beige.vercel.app/](https://post-app-beige.vercel.app/)
