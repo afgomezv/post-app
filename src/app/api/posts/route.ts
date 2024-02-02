@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/config/prisma";
-import { log } from "util";
 
 export async function GET() {
   const posts = await prisma.post.findMany();

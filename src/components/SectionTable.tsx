@@ -30,10 +30,9 @@ import { LuMoreVertical } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 
-//* Helpers
+//* Helpers & Utils
+import { handleDeletePost } from "@/helpers/handleDeletePost";
 import { columnsTitles } from "@/utils/columnsTitles";
-import axios from "axios";
-import Swal from "sweetalert2";
 
 interface Props {
   posts: Post[];
@@ -48,6 +47,7 @@ const SectionTable = ({ posts }: Props) => {
     direction: "ascending",
   });
 
+  //* Filtrar por titulo
   const hasSearchFilter = Boolean(filterValue);
 
   const filteredItems = useMemo(() => {
@@ -61,6 +61,7 @@ const SectionTable = ({ posts }: Props) => {
     return filteredPosts;
   }, [posts, hasSearchFilter, filterValue]);
 
+  //* Pagination
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
   const items = useMemo(() => {
@@ -113,19 +114,7 @@ const SectionTable = ({ posts }: Props) => {
                 <DropdownItem href={`/addpost/${posts.id}`}>
                   Editar
                 </DropdownItem>
-                <DropdownItem
-                  href={"/"}
-                  onClick={() => {
-                    axios.delete(`/api/posts/${posts.id}`);
-                    Swal.fire({
-                      position: "center",
-                      icon: "error",
-                      title: "Se ha eliminado la publicación",
-                      showConfirmButton: false,
-                      timer: 1500,
-                    });
-                  }}
-                >
+                <DropdownItem href={"/"} onClick={() => handleDeletePost}>
                   Eliminar
                 </DropdownItem>
               </DropdownMenu>
@@ -204,7 +193,6 @@ const SectionTable = ({ posts }: Props) => {
   const bottomContent = useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-center items-center">
-        {/* Otros elementos */}
         <Pagination
           isCompact
           showControls
