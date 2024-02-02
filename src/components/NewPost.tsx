@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from "react";
 
 //*Next
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 //*NextUI
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
@@ -18,8 +19,10 @@ import { User, Post } from "@/interface";
 
 //*Iconos
 import { FaArrowLeft, FaSave } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+
 import Swal from "sweetalert2";
+
+//*Componente
 import { Loading } from "./Loading";
 
 interface Props {
@@ -29,11 +32,6 @@ interface Props {
 
 const NewPost: FC<Props> = ({ authors, params }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [postForm, setPostForm] = useState({
-    title: "",
-    body: "",
-    authorId: "",
-  });
 
   const router = useRouter();
 

@@ -31,14 +31,13 @@ import { FiSearch } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 
 //* Helpers & Utils
-import { handleDeletePost } from "@/helpers/handleDeletePost";
 import { columnsTitles } from "@/utils/columnsTitles";
+import { Posts } from "@/interface/Posts";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-interface Props {
-  posts: Post[];
-}
-
-const SectionTable = ({ posts }: Props) => {
+const SectionTable = ({ posts }: Posts) => {
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -72,7 +71,7 @@ const SectionTable = ({ posts }: Props) => {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
-    return [...items].sort((a: IPost, b: Post) => {
+    return [...items].sort((a: IPost, b: IPost) => {
       const first = a[sortDescriptor.column as keyof IPost] as number;
       const second = b[sortDescriptor.column as keyof IPost] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
@@ -114,7 +113,10 @@ const SectionTable = ({ posts }: Props) => {
                 <DropdownItem href={`/addpost/${posts.id}`}>
                   Editar
                 </DropdownItem>
-                <DropdownItem href={"/"} onClick={() => handleDeletePost}>
+                <DropdownItem
+                  href={"/"}
+                  onClick={() => handleDeletePost(`${posts.id}`)}
+                >
                   Eliminar
                 </DropdownItem>
               </DropdownMenu>
@@ -147,6 +149,24 @@ const SectionTable = ({ posts }: Props) => {
     setFilterValue("");
     setPage(1);
   }, []);
+
+  const router = useRouter();
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      await axios.delete(`/api/posts/${postId}`);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Se ha eliminado la publicación",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error al eliminar la publicación", error);
+    }
+    router.refresh();
+  };
 
   const topContent = useMemo(() => {
     return (
@@ -192,7 +212,10 @@ const SectionTable = ({ posts }: Props) => {
 
   const bottomContent = useMemo(() => {
     return (
-      <div className="py-2 px-2 flex justify-center items-center">
+      <div
+        data-testid="pagination"
+        className="py-2 px-2 flex justify-center items-center"
+      >
         <Pagination
           isCompact
           showControls
