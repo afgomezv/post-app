@@ -1,5 +1,5 @@
 //*Function
-import NewPost from "@/components/NewPost";
+import UpdatePost from "@/components/UpdatePosts";
 
 //* Componente
 import { getAuthors } from "@/helpers/getAuthors";
@@ -11,7 +11,7 @@ async function UpdatePostPage({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <NewPost authors={authors} params={params} />
+      <UpdatePost authors={authors} params={params} />
     </div>
   );
 }

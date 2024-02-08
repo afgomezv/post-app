@@ -6,12 +6,12 @@ import NewPost from "@/components/NewPost";
 
 export const dynamic = "force-dynamic";
 
-async function addPostPage({ params }: { params: { id: string } }) {
+async function addPostPage() {
   const authors = await getAuthors();
 
   return (
     <div>
-      <NewPost authors={authors} params={params} />
+      <NewPost authors={authors} />
     </div>
   );
 }

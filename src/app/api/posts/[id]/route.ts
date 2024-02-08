@@ -40,5 +40,7 @@ export async function DELETE(request: Request, { params }: Params) {
       id: Number(params.id),
     },
   });
+  console.log(postdeleted);
+
   return NextResponse.json(postdeleted);
 }

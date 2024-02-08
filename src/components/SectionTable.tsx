@@ -94,7 +94,7 @@ const SectionTable = ({ posts }: Posts) => {
       case "body":
         return <p className="text-center">{posts.body}</p>;
       case "authorId":
-        return <p className="text-center">{posts.userId}</p>;
+        return <p className="text-center">{posts.author}</p>;
       case "acciones":
         return (
           <div className="relative flex justify-center items-center gap-2">
@@ -160,12 +160,14 @@ const SectionTable = ({ posts }: Posts) => {
         icon: "error",
         title: "Se ha eliminado la publicación",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
+      }).then(() => {
+        router.push("/");
+        window.location.reload();
       });
     } catch (error) {
       console.error("Error al eliminar la publicación", error);
     }
-    router.refresh();
   };
 
   const topContent = useMemo(() => {
